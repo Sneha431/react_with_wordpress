@@ -1,0 +1,55 @@
+
+
+import React, { Component } from 'react'
+import Navbar from "./Navbar";
+import axios from 'axios';
+import {Link} from 'react-router-dom';
+export default class Home extends Component {
+
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       loading:false,
+       posts:[],
+       error:''
+    }
+  }
+  componentDidMount(){
+    const wordpressurl = "http://localhost/react_wordpress/";
+    this.setState({loading:true},()=>{
+axios.get(`${wordpressurl}/wp-json/wp/v2/posts`).then((response)=>{
+  console.log(response.data)
+}).catch((error)=>{
+  this.setState({state:{loading:false},error:error})
+})
+    })
+  }
+  render() {
+    return (
+      <div>
+        <Navbar/>
+        <div className="mt-5 posts-container">
+					
+							<div className="card border-dark mb-3" style={{maxWidth: '50rem'}}>
+								<div className="card-header">
+									<Link to="" className="text-secondary font-weight-bold" style={{ textDecoration: 'none' }}>
+								
+									</Link>
+								</div>
+								<div className="card-body">
+									<div className="card-text post-content"></div>
+								</div>
+								<div className="card-footer">
+								
+									<Link className="btn btn-secondary float-right" style={{ textDecoration: 'none' }}>
+										Read More...
+									</Link>
+								</div>
+							</div>
+						
+					</div>
+      </div>
+    )
+  }
+}
