@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from 'react'
 import Navbar from "./Navbar";
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Parser } from 'html-to-react'
 import Moment from 'react-moment';
 // import { Audio } from 'react-loader-spinner'
@@ -13,12 +13,37 @@ const Home = () => {
  const [posts, setposts] = useState([])
  const [error, seterror] = useState('');
  const wordpressurl = "http://localhost/react_wordpress/";
+ const [show, setshow] = useState(false)
+ const navigate =useNavigate();
  useEffect(() => {
 
 setloading(true);
 getposts();
+if(localStorage.getItem("token"))
+{
+ setshow(true);
+}
  }, [])
 
+
+ 
+ const deletepost = (id) =>{
+  const authToken = localStorage.getItem( 'token' );
+  axios.delete(`${wordpressurl}/wp-json/wp/v2/posts/${id}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ authToken }`
+    }
+  }).then((response)=>{
+    console.log(response.data)
+    getposts();
+    }).catch((error)=>{
+      seterror(error.message);
+     
+      setloading(false);
+     
+    })
+ }
  const getposts = () =>{
   axios.get(`${wordpressurl}/wp-json/wp/v2/posts`).then((response)=>{
     console.log(response.data)
@@ -51,9 +76,16 @@ getposts();
  <div className="card-footer">
  <Moment fromNow >{post.date}</Moment>
  <br></br>
- <Link to={`/post/${post.id}`} className="btn btn-secondary float-right" style={{ textDecoration: 'none' }}>
+ {show && <><Link to={`/dashboard/post/${post.id}`} className="btn btn-secondary float-right" style={{ textDecoration: 'none' }}>
 										Read More...
 									</Link>
+                  <Link to={`/dashboard/updatepost/${post.id}`} className="btn btn-secondary float-right" style={{ textDecoration: 'none' }}>
+									Update Post
+									</Link>
+
+                  <button className="btn btn-secondary float-right" style={{ textDecoration: 'none' }} onClick={()=>deletepost(post.id)}>
+									Delete Post
+									</button></>}
  </div>
 </div>
 
