@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import { Parser } from 'html-to-react'
+import WrapperCard from './WrapperCard';
 function UpdatePage() {
     const { id } = useParams()
     const [pages, setpages] = useState([])
@@ -59,7 +60,7 @@ const [content, setcontent] = useState("");
 				'Content-Type': 'application/json',
 				'Authorization': `Bearer ${ authToken }`
 			}
-		}).then((respose)=>{
+		}).then((response)=>{
       
     }).catch((err)=>{
       console.log(err.response.data)
@@ -92,8 +93,10 @@ const [content, setcontent] = useState("");
 						<label htmlFor="my-post-content">Content</label>
 						<textarea name="content" className="form-control" id="my-post-content" onChange={(e)=>setcontent(e.target.value)} rows="10" value={content}/>
 					</div>
+         
 
-				
+			
+        <WrapperCard>{Parser().parse(content)}</WrapperCard>
 					<button type="submit" className="btn btn-secondary">Submit</button>
 		
 				</form>

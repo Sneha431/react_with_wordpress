@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from 'react'
 import Navbar from "./Navbar";
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Parser } from 'html-to-react'
 import Moment from 'react-moment';
 // import { Audio } from 'react-loader-spinner'

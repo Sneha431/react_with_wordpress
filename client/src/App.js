@@ -11,6 +11,8 @@ import Page from './components/Page';
 import Singlepage from './components/SinglePage';
 import UpdatePage from './components/UpdatePage';
 import UpdatePost from './components/UpdatePost';
+import Postmedia from './components/Postmedia';
+import Media from './components/Media';
 
 
 
@@ -30,6 +32,8 @@ export default function App() {
     <Route path="/dashboard/:username" element={  <Dashhboard/>}/>
    
     <Route path="/dashboard/create-post" element={  <CreatePost/>}/>
+    <Route path="/dashboard/media" element={  <Media/>}/>
+    <Route path="/dashboard/mediapost" element={  <Postmedia/>}/>
     <Route path="/dashboard/updatepost/:id" element={  <UpdatePost  />}/>
     <Route path="/dashboard/create-page" element={  <CreatePage/>}/>
       </Routes>

@@ -52,6 +52,17 @@ return (
            
           </Link>
         </li>
+        <li className="nav-item">
+        <Link className="nav-link " to="/dashboard/media">Media
+           
+           </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link " to="/dashboard/mediapost">Media Post
+           
+          </Link>
+        </li>
+      
          <li className="nav-item">
          <span className="nav-link" onClick={logoutevent}>Logout
             
